@@ -1,7 +1,6 @@
 package com.celonis.springboot.chatdemo.entity;
 
 import javax.persistence.*;
-import java.util.LinkedList;
 import java.util.List;
 
 @Entity
