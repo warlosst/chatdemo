@@ -1,5 +1,6 @@
 package com.celonis.springboot.chatdemo.rest;
 
+import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.Room;
 import com.celonis.springboot.chatdemo.entity.User;
 import com.celonis.springboot.chatdemo.service.RoomService;
@@ -89,5 +90,14 @@ public class RoomRestController {
         room.removeUser(user);
         roomService.save(room);
         return "User: "+userId+" left room "+roomId;
+    }
+    @GetMapping("/rooms/{roomId}/messages")
+    public List<Message> getMessagesOfRoom(@PathVariable int roomId){
+        Room room = roomService.findById(roomId);
+        if(room==null){
+            throw new RuntimeException("Room id not found - "+roomId);
+        }
+        List<Message> messageList = room.getMessageList();
+        return messageList;
     }
 }
