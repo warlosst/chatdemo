@@ -3,6 +3,8 @@ package com.celonis.springboot.chatdemo.rest;
 import com.celonis.springboot.chatdemo.entity.User;
 import com.celonis.springboot.chatdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,7 +14,7 @@ import java.util.List;
 public class UserRestController {
 
     private UserService userService;
-
+    private Authentication auth = SecurityContextHolder.getContext().getAuthentication();
     @Autowired
     public UserRestController(UserService userService){
         this.userService = userService;
@@ -31,9 +33,9 @@ public class UserRestController {
         }
         return user;
     }
-
     @PostMapping("/users")
     public User saveUser(@RequestBody User user){
+
         user.setId(0);
         userService.save(user);
         return user;
@@ -41,6 +43,10 @@ public class UserRestController {
 
     @PutMapping("/users")
     public User updateUser(@RequestBody User user){
+        User authUser = (User)auth.getPrincipal();
+        if(!(authUser.getId()==user.getId())){
+            throw new RuntimeException("Not authorized!");
+        }
         userService.save(user);
         return user;
     }
@@ -54,4 +60,5 @@ public class UserRestController {
         userService.deleteById(userId);
         return "User id deleted - "+userId;
     }
+
 }

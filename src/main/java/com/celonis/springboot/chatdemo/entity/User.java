@@ -17,6 +17,14 @@ public class User {
     @Column(name="password")
     private String password;
 
+    @Column(name="enabled")
+    private boolean enabled;
+    @Column(name="ROLE_USER")
+    private String role;
+    @Column(name="email")
+    private String email;
+
+
     @ManyToMany(fetch = FetchType.LAZY,cascade = {
             CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,
             CascadeType.PERSIST
@@ -76,4 +84,27 @@ public class User {
         this.roomList = roomList;
     }
 
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
 }

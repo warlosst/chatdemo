@@ -52,4 +52,13 @@ public class UserDAOImpl implements UserDAO{
         theQuery.setParameter("userId",id);
         theQuery.executeUpdate();
     }
+
+    @Override
+    public User findByUsername(String username) {
+        Session currentSession = entityManager.unwrap(Session.class);
+        Query theQuery = currentSession.createQuery("from User s where s.username=:userName",User.class);
+        theQuery.setParameter("userName",username);
+        List<User> user = theQuery.getResultList();
+        return user.get(0);
+    }
 }
