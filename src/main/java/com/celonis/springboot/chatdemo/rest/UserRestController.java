@@ -41,7 +41,6 @@ public class UserRestController {
     @PutMapping
     public User updateUser(@RequestBody User user, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
-        System.out.println(principal.getName());
         if(user.getUsername().equals(principal.getName()) ){
         userService.setUserInfoById(user.getUsername(),
                 user.getPassword(), user.getId(), user.getEmail());
@@ -53,8 +52,15 @@ public class UserRestController {
     }
 
     @DeleteMapping("/{userId}")
-    public void deleteUser(@PathVariable int userId){
-        userService.deleteById(userId);
+    public void deleteUser(@PathVariable int userId,HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        User user = userService.findById(userId);
+        if(principal.getName().equals(user.getUsername())) {
+            userService.deleteById(userId);
+        }
+        else{
+            throw new RuntimeException("Cannot delete user");
+        }
     }
 
 }
