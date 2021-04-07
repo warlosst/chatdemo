@@ -1,42 +1,55 @@
 package com.celonis.springboot.chatdemo.service;
 
-import com.celonis.springboot.chatdemo.dao.RoomDAO;
+import com.celonis.springboot.chatdemo.dao.RoomRepository;
 import com.celonis.springboot.chatdemo.entity.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class RoomServiceImpl implements RoomService{
 
-    private RoomDAO roomDAO;
+    private RoomRepository roomRepository;
 
     @Autowired
-    public RoomServiceImpl(RoomDAO roomDAO) {
-        this.roomDAO = roomDAO;
+    public RoomServiceImpl(RoomRepository roomRepository) {
+        this.roomRepository = roomRepository;
     }
-    @Transactional
+
     @Override
     public List<Room> findAll() {
-        return roomDAO.findAll();
+        return roomRepository.findAll();
     }
 
-    @Transactional
     @Override
     public Room findById(int id) {
-        return roomDAO.findById(id);
+        Optional<Room> result = roomRepository.findById(id);
+        Room tempRoom = null;
+        if(result.isPresent()){
+            tempRoom = result.get();
+        }
+        else{
+            throw new RuntimeException("Did not find room with id: "+id);
+        }
+        return tempRoom;
     }
 
-    @Transactional
     @Override
     public void save(Room room) {
-        roomDAO.save(room);
+        roomRepository.save(room);
     }
 
-    @Transactional
     @Override
     public void deleteById(int id) {
-        roomDAO.deleteById(id);
+        Optional<Room> result = roomRepository.findById(id);
+        if(result.isPresent()){
+            roomRepository.deleteById(id);
+        }
+        else{
+            throw new RuntimeException("Did not find room with id: "+id);
+        }
+
     }
 }

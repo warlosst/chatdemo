@@ -1,5 +1,7 @@
 package com.celonis.springboot.chatdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 
 @Entity
@@ -13,12 +15,25 @@ public class Message {
     @Column(name="message")
     private String message;
 
-    @Column(name="user_id")
-    private int userId;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name="user_id")
+    private User user;
 
-    @Column(name="room_id")
-    private int roomId;
+    @JsonIgnore
+    @ManyToOne(fetch = FetchType.EAGER,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+            CascadeType.DETACH, CascadeType.REFRESH})
+    @JoinColumn(name="room_id")
+    private Room room;
+
     public Message() {
+    }
+
+    public Message(String message, User user, Room room) {
+        this.message = message;
+        this.user = user;
+        this.room = room;
     }
 
     public int getId() {
@@ -37,19 +52,19 @@ public class Message {
         this.message = message;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getRoomId() {
-        return roomId;
+    public Room getRoom() {
+        return room;
     }
 
-    public void setRoomId(int roomId) {
-        this.roomId = roomId;
+    public void setRoom(Room room) {
+        this.room = room;
     }
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/users")
 public class UserRestController {
 
     private UserService userService;
@@ -20,45 +20,31 @@ public class UserRestController {
         this.userService = userService;
     }
 
-    @GetMapping("/users")
+    @GetMapping
     public List<User> findAllUsers(){
         return userService.findAll();
     }
 
-    @GetMapping("/users/{userId}")
+    @GetMapping("/{userId}")
     public User findUserById(@PathVariable int userId){
         User user = userService.findById(userId);
-        if(user ==null){
-            throw new RuntimeException("User id not found - "+userId);
-        }
         return user;
     }
-    @PostMapping("/users")
+    @PostMapping
     public User saveUser(@RequestBody User user){
-
-        user.setId(0);
         userService.save(user);
         return user;
     }
 
-    @PutMapping("/users")
+    @PutMapping
     public User updateUser(@RequestBody User user){
-        User authUser = (User)auth.getPrincipal();
-        if(!(authUser.getId()==user.getId())){
-            throw new RuntimeException("Not authorized!");
-        }
         userService.save(user);
         return user;
     }
 
-    @DeleteMapping("/users/{userId}")
-    public String deleteUser(@PathVariable int userId){
-        User user = userService.findById(userId);
-        if(user == null){
-            throw new RuntimeException("User id not found - "+userId);
-        }
+    @DeleteMapping("/{userId}")
+    public void deleteUser(@PathVariable int userId){
         userService.deleteById(userId);
-        return "User id deleted - "+userId;
     }
 
 }

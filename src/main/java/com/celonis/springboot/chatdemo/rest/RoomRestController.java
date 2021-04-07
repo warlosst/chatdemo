@@ -3,6 +3,7 @@ package com.celonis.springboot.chatdemo.rest;
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.Room;
 import com.celonis.springboot.chatdemo.entity.User;
+import com.celonis.springboot.chatdemo.service.MessageService;
 import com.celonis.springboot.chatdemo.service.RoomService;
 import com.celonis.springboot.chatdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,93 +12,73 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/rooms")
 public class RoomRestController {
 
     private RoomService roomService;
     private UserService userService;
+    private MessageService messageService;
 
     @Autowired
-    public RoomRestController(RoomService roomService,UserService userService){
+    public RoomRestController(RoomService roomService,UserService userService,MessageService messageService){
         this.roomService = roomService;
         this.userService = userService;
+        this.messageService = messageService;
     }
 
-    @GetMapping("/rooms")
+    @GetMapping
     public List<Room> findAllRooms(){
         return roomService.findAll();
     }
 
-    @GetMapping("/rooms/{roomId}")
+    @GetMapping("/{roomId}")
     public Room findRoomById(@PathVariable int roomId){
         Room room = roomService.findById(roomId);
-        if(room == null){
-            throw new RuntimeException("Room id not found - "+roomId);
-        }
         return room;
     }
 
-    @PostMapping("/rooms")
+    @PostMapping
     public Room saveRoom(@RequestBody Room room){
-        room.setId(0);
         roomService.save(room);
         return room;
     }
 
-    @PutMapping("/rooms")
+    @PutMapping
     public Room updateRoom(@RequestBody Room room){
         roomService.save(room);
         return room;
     }
 
-    @DeleteMapping("/rooms/{roomId}")
-    public String deleteRoom(@PathVariable int roomId){
-        Room room = roomService.findById(roomId);
-        if(room == null){
-            throw new RuntimeException("Room id not found - "+roomId);
-        }
+    @DeleteMapping("/{roomId}")
+    public void deleteRoom(@PathVariable int roomId){
         roomService.deleteById(roomId);
-        return "Room id deleted - "+roomId;
     }
 
-    @PutMapping("/rooms/{roomId}/users/{userId}")
+    @PutMapping("/{roomId}/users/{userId}")
     public Room addUserToRoom(@PathVariable int roomId,@PathVariable int userId){
         Room room = roomService.findById(roomId);
         User user = userService.findById(userId);
-        if(room==null || user==null){
-            throw new RuntimeException("User id or Room id not found");
-        }
         room.addUser(user);
         roomService.save(room);
         return room;
     }
-    @GetMapping("/rooms/{roomId}/users")
+    @GetMapping("/{roomId}/users")
     public List<User> findAllUsersInRoom(@PathVariable int roomId){
         Room room = roomService.findById(roomId);
-        if(room==null){
-            throw new RuntimeException("User id or Room id not found");
-        }
         List<User> userList = room.getUserList();
         return userList;
     }
-    @DeleteMapping("/rooms/{roomId}/users/{userId}")
-    public String leaveRoom(@PathVariable int roomId,@PathVariable int userId){
+    @DeleteMapping("/{roomId}/users/{userId}")
+    public void leaveRoom(@PathVariable int roomId,@PathVariable int userId){
         Room room = roomService.findById(roomId);
         User user = userService.findById(userId);
-        if(room==null || user==null){
-            throw new RuntimeException("User id or Room id not found");
-        }
         room.removeUser(user);
         roomService.save(room);
-        return "User: "+userId+" left room "+roomId;
     }
-    @GetMapping("/rooms/{roomId}/messages")
+    @GetMapping("/{roomId}/messages")
     public List<Message> getMessagesOfRoom(@PathVariable int roomId){
-        Room room = roomService.findById(roomId);
-        if(room==null){
-            throw new RuntimeException("Room id not found - "+roomId);
-        }
-        List<Message> messageList = room.getMessageList();
+
+        List<Message> messageList = messageService.findAllByRoomId(roomId);
         return messageList;
     }
 }

@@ -26,7 +26,7 @@ public class Room {
     )
     private List<User> userList;
 
-    @OneToMany(fetch = FetchType.LAZY,
+    @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.ALL
     })
     @JoinColumn(name = "room_id")
