@@ -7,6 +7,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -37,8 +39,16 @@ public class UserRestController {
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user){
-        userService.save(user);
+    public User updateUser(@RequestBody User user, HttpServletRequest request){
+        Principal principal = request.getUserPrincipal();
+        System.out.println(principal.getName());
+        if(user.getUsername().equals(principal.getName()) ){
+        userService.setUserInfoById(user.getUsername(),
+                user.getPassword(), user.getId(), user.getEmail());
+        }
+        else{
+            throw new RuntimeException("Cannot update user");
+        }
         return user;
     }
 

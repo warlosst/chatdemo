@@ -9,5 +9,6 @@ public interface UserService {
     public User findById(int id);
     public User findByUsername(String username);
     public void save(User user);
+    public void setUserInfoById(String username, String password, Integer id,String email);
     public void deleteById(int id);
 }

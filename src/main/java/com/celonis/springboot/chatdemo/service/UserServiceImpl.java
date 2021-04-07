@@ -20,13 +20,13 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
     }
 
-    @Transactional
+
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
 
-    @Transactional
+
     @Override
     public User findById(int id) {
         Optional<User> result = userRepository.findById(id);
@@ -39,19 +39,25 @@ public class UserServiceImpl implements UserService{
         }
         return tempUser;
     }
-    @Transactional
+
     @Override
     public User findByUsername(String username) {
         return userRepository.findByUsername(username);
     }
 
-    @Transactional
+
     @Override
     public void save(User user) {
         userRepository.save(user);
     }
 
     @Transactional
+    @Override
+    public void setUserInfoById(String username, String password, Integer id, String email) {
+        userRepository.setUserInfoById(username,password,id,email);
+    }
+
+
     @Override
     public void deleteById(int id) {
         Optional<User> result = userRepository.findById(id);
