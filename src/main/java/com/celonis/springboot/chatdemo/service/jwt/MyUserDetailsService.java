@@ -1,5 +1,6 @@
-package com.celonis.springboot.chatdemo.service;
+package com.celonis.springboot.chatdemo.service.jwt;
 
+import com.celonis.springboot.chatdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;

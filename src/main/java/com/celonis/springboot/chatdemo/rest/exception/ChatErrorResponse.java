@@ -1,4 +1,4 @@
-package com.celonis.springboot.chatdemo.rest;
+package com.celonis.springboot.chatdemo.rest.exception;
 
 public class ChatErrorResponse {
 

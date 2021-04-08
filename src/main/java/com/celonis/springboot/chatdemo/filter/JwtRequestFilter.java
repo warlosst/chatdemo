@@ -1,7 +1,7 @@
 package com.celonis.springboot.chatdemo.filter;
 
-import com.celonis.springboot.chatdemo.service.JwtUtil;
-import com.celonis.springboot.chatdemo.service.MyUserDetailsService;
+import com.celonis.springboot.chatdemo.service.jwt.JwtUtil;
+import com.celonis.springboot.chatdemo.service.jwt.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

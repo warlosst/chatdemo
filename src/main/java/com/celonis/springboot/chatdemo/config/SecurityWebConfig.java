@@ -1,7 +1,7 @@
 package com.celonis.springboot.chatdemo.config;
 
 import com.celonis.springboot.chatdemo.filter.JwtRequestFilter;
-import com.celonis.springboot.chatdemo.service.MyUserDetailsService;
+import com.celonis.springboot.chatdemo.service.jwt.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

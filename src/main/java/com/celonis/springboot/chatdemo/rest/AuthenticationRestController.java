@@ -2,8 +2,8 @@ package com.celonis.springboot.chatdemo.rest;
 
 import com.celonis.springboot.chatdemo.entity.AuthenticationRequest;
 import com.celonis.springboot.chatdemo.entity.AuthenticationResponse;
-import com.celonis.springboot.chatdemo.service.JwtUtil;
-import com.celonis.springboot.chatdemo.service.MyUserDetailsService;
+import com.celonis.springboot.chatdemo.service.jwt.JwtUtil;
+import com.celonis.springboot.chatdemo.service.jwt.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;

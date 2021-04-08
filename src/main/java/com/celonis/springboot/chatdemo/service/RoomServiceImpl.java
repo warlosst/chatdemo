@@ -2,7 +2,7 @@ package com.celonis.springboot.chatdemo.service;
 
 import com.celonis.springboot.chatdemo.dao.RoomRepository;
 import com.celonis.springboot.chatdemo.entity.Room;
-import com.celonis.springboot.chatdemo.rest.NotFoundException;
+import com.celonis.springboot.chatdemo.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

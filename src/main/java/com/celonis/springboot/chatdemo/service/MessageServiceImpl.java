@@ -7,7 +7,7 @@ import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.MessageHelper;
 import com.celonis.springboot.chatdemo.entity.Room;
 import com.celonis.springboot.chatdemo.entity.User;
-import com.celonis.springboot.chatdemo.rest.NotFoundException;
+import com.celonis.springboot.chatdemo.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;

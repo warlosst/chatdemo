@@ -1,6 +1,7 @@
 package com.celonis.springboot.chatdemo.rest;
 
 import com.celonis.springboot.chatdemo.entity.User;
+import com.celonis.springboot.chatdemo.rest.exception.NotAuthorizedException;
 import com.celonis.springboot.chatdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -45,8 +46,8 @@ public class UserRestController {
         userService.setUserInfoById(user.getUsername(),
                 user.getPassword(), user.getId(), user.getEmail());
         }
-        else{
-            throw new RuntimeException("Cannot update user");
+        else {
+            throw new NotAuthorizedException("Not authorized");
         }
         return user;
     }
@@ -59,7 +60,7 @@ public class UserRestController {
             userService.deleteById(userId);
         }
         else{
-            throw new RuntimeException("Cannot delete user");
+            throw new NotAuthorizedException("Not authorized");
         }
     }
 

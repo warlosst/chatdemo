@@ -1,5 +1,4 @@
-package com.celonis.springboot.chatdemo.rest;
-
+package com.celonis.springboot.chatdemo.rest.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 public class ChatRestExceptionHandler {
 
     @ExceptionHandler
-    public ResponseEntity<ChatErrorResponse> handleException(Exception ex){
+    public ResponseEntity<ChatErrorResponse> handleBadRequestException(Exception ex){
 
         ChatErrorResponse error = new ChatErrorResponse();
 
@@ -23,7 +22,7 @@ public class ChatRestExceptionHandler {
 
     }
     @ExceptionHandler
-    public ResponseEntity<ChatErrorResponse> handleException(NotFoundException ex){
+    public ResponseEntity<ChatErrorResponse> handleNotFoundException(NotFoundException ex){
 
         ChatErrorResponse error = new ChatErrorResponse();
 
@@ -36,7 +35,7 @@ public class ChatRestExceptionHandler {
     }
 
     @ExceptionHandler
-    public ResponseEntity<ChatErrorResponse> handleException(MethodArgumentNotValidException ex){
+    public ResponseEntity<ChatErrorResponse> handleBadArgumentsException(MethodArgumentNotValidException ex){
         ChatErrorResponse error = new ChatErrorResponse();
 
         error.setStatus(HttpStatus.BAD_REQUEST.value());
@@ -44,6 +43,16 @@ public class ChatRestExceptionHandler {
         error.setTimeStamp(System.currentTimeMillis());
 
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler
+    public ResponseEntity<ChatErrorResponse> handleNotAuthorizedException(NotAuthorizedException ex){
+        ChatErrorResponse error = new ChatErrorResponse();
+
+        error.setStatus(HttpStatus.FORBIDDEN.value());
+        error.setMessage(ex.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.FORBIDDEN);
     }
 
 }
