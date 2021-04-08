@@ -7,6 +7,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import java.security.Principal;
 import java.util.List;
 
@@ -32,13 +33,13 @@ public class UserRestController {
         return user;
     }
     @PostMapping
-    public User saveUser(@RequestBody User user){
+    public User saveUser(@Valid @RequestBody User user){
         userService.save(user);
         return user;
     }
 
     @PutMapping
-    public User updateUser(@RequestBody User user, HttpServletRequest request){
+    public User updateUser(@Valid @RequestBody User user, HttpServletRequest request){
         Principal principal = request.getUserPrincipal();
         if(user.getUsername().equals(principal.getName()) ){
         userService.setUserInfoById(user.getUsername(),

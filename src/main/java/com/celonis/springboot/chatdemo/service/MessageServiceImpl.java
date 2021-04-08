@@ -7,6 +7,7 @@ import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.MessageHelper;
 import com.celonis.springboot.chatdemo.entity.Room;
 import com.celonis.springboot.chatdemo.entity.User;
+import com.celonis.springboot.chatdemo.rest.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -58,7 +59,7 @@ public class MessageServiceImpl implements MessageService{
            user = resultUser.get();
         }
         else{
-            throw new RuntimeException("No user with this id");
+            throw new NotFoundException("No user with this id");
         }
         if(resultRoom.isPresent()){
             room = resultRoom.get();
@@ -84,7 +85,7 @@ public class MessageServiceImpl implements MessageService{
             messageRepository.deleteById(id);
         }
         else{
-            throw new RuntimeException("Did not find message with id: "+id);
+            throw new NotFoundException("Did not find message with id: "+id);
         }
     }
 

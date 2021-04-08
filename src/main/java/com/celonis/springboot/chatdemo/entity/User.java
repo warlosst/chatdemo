@@ -1,6 +1,7 @@
 package com.celonis.springboot.chatdemo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -12,14 +13,15 @@ public class User {
     @Column(name = "id")
     private int id;
 
-    @NotNull
+    @NotNull(message = "username must not be null")
     @Column(name="username")
     private String username;
 
-    @NotNull
+    @NotNull(message = "password must not be null")
     @Column(name="password")
     private String password;
 
+    @Email(message = "invalid email format")
     @Column(name="email")
     private String email;
 
