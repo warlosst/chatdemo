@@ -3,6 +3,7 @@ package com.celonis.springboot.chatdemo.rest;
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.MessageHelper;
 import com.celonis.springboot.chatdemo.entity.User;
+import com.celonis.springboot.chatdemo.rest.exception.NotAuthorizedException;
 import com.celonis.springboot.chatdemo.service.MessageService;
 import com.celonis.springboot.chatdemo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,7 @@ public class MessageRestController {
             messageService.save(messageHelper);
         }
         else{
-            throw new RuntimeException("Incorrect userId :"+messageHelper.getUserId());
+            throw new NotAuthorizedException("Not authorized");
         }
         return messageHelper;
     }

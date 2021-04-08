@@ -42,7 +42,7 @@ public class MessageServiceImpl implements MessageService{
             tempMessage = result.get();
         }
         else{
-            throw new RuntimeException("Did not find message with id: "+id);
+            throw new NotFoundException("Did not find message with id: "+id);
         }
         return tempMessage;
     }

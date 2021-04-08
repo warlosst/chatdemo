@@ -23,12 +23,10 @@ public class UserServiceImpl implements UserService{
         this.userRepository = userRepository;
     }
 
-
     @Override
     public List<User> findAll() {
         return userRepository.findAll();
     }
-
 
     @Override
     public User findById(int id) {
@@ -48,7 +46,6 @@ public class UserServiceImpl implements UserService{
         return userRepository.findByUsername(username);
     }
 
-
     @Override
     public void save(User user) {
         user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
@@ -60,7 +57,6 @@ public class UserServiceImpl implements UserService{
     public void setUserInfoById(String username, String password, Integer id, String email) {
         userRepository.setUserInfoById(username,password,id,email);
     }
-
 
     @Override
     public void deleteById(int id) {
