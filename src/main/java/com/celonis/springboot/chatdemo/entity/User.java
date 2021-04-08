@@ -1,6 +1,7 @@
 package com.celonis.springboot.chatdemo.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
@@ -11,16 +12,14 @@ public class User {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @Column(name="username")
     private String username;
 
+    @NotNull
     @Column(name="password")
     private String password;
 
-    @Column(name="enabled")
-    private boolean enabled;
-    @Column(name="ROLE_USER")
-    private String role;
     @Column(name="email")
     private String email;
 
@@ -82,22 +81,6 @@ public class User {
 
     public void setRoomList(List<Room> roomList) {
         this.roomList = roomList;
-    }
-
-    public boolean isEnabled() {
-        return enabled;
-    }
-
-    public void setEnabled(boolean enabled) {
-        this.enabled = enabled;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
     }
 
     public String getEmail() {

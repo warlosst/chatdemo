@@ -3,6 +3,7 @@ package com.celonis.springboot.chatdemo.entity;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "message")
@@ -12,6 +13,7 @@ public class Message {
     @Column(name = "id")
     private int id;
 
+    @NotNull
     @Column(name="message")
     private String message;
 
