@@ -1,5 +1,7 @@
 package com.celonis.springboot.chatdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
@@ -17,6 +19,7 @@ public class User {
     @Column(name="username")
     private String username;
 
+    @JsonIgnore
     @NotNull(message = "password must not be null")
     @Column(name="password")
     private String password;
