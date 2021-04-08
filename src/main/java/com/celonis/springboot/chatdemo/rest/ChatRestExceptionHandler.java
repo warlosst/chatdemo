@@ -21,4 +21,17 @@ public class ChatRestExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
 
     }
+    @ExceptionHandler
+    public ResponseEntity<ChatErrorResponse> handleException(UserNotFoundException ex){
+
+        ChatErrorResponse error = new ChatErrorResponse();
+
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        error.setMessage(ex.getMessage());
+        error.setTimeStamp(System.currentTimeMillis());
+
+        return new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
+
+    }
+
 }

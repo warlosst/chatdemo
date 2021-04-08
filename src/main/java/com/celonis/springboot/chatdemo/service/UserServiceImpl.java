@@ -1,8 +1,8 @@
 package com.celonis.springboot.chatdemo.service;
 
 import com.celonis.springboot.chatdemo.dao.UserRepository;
-import com.celonis.springboot.chatdemo.entity.Room;
 import com.celonis.springboot.chatdemo.entity.User;
+import com.celonis.springboot.chatdemo.rest.UserNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +35,7 @@ public class UserServiceImpl implements UserService{
             tempUser = result.get();
         }
         else{
-            throw new RuntimeException("Did not find user with id: "+id);
+            throw new UserNotFoundException("Did not find user with id: "+id);
         }
         return tempUser;
     }
