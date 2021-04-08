@@ -11,10 +11,9 @@ import java.util.List;
 public class Room {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "room_id")
     private int id;
 
-    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,cascade = {
             CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,
             CascadeType.PERSIST
@@ -22,17 +21,18 @@ public class Room {
     @JoinTable(
             name="membership",
             joinColumns = @JoinColumn(name="room_id"),
-            inverseJoinColumns = @JoinColumn(name="user_id")
+            inverseJoinColumns = @JoinColumn(name="client_id")
     )
-    private List<User> userList;
+    private List<Client> clientList;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.EAGER,
             cascade = {CascadeType.ALL
     })
     @JoinColumn(name = "room_id")
     private List<Message> messageList;
 
-    @Column(name="name")
+    @Column(name="room_name")
     private String name;
 
     public Room() {
@@ -46,12 +46,12 @@ public class Room {
         this.id = id;
     }
 
-    public List<User> getUserList() {
-        return userList;
+    public List<Client> getUserList() {
+        return clientList;
     }
 
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
+    public void setUserList(List<Client> clientList) {
+        this.clientList = clientList;
     }
 
     public List<Message> getMessageList() {
@@ -70,14 +70,14 @@ public class Room {
         this.name = name;
     }
 
-    public void addUser(User user){
-        if(userList==null){
-            userList = new LinkedList<>();
+    public void addUser(Client client){
+        if(clientList ==null){
+            clientList = new LinkedList<>();
         }
-        userList.add(user);
+        clientList.add(client);
     }
 
-    public void removeUser(User user) {
-        userList.remove(user);
+    public void removeUser(Client client) {
+        clientList.remove(client);
     }
 }

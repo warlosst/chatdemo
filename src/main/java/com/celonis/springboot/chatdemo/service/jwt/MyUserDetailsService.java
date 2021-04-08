@@ -1,6 +1,6 @@
 package com.celonis.springboot.chatdemo.service.jwt;
 
-import com.celonis.springboot.chatdemo.service.UserService;
+import com.celonis.springboot.chatdemo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -13,11 +13,11 @@ import java.util.ArrayList;
 @Service
 public class MyUserDetailsService implements UserDetailsService {
     @Autowired
-    private UserService userService;
+    private ClientService clientService;
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        return new User(userService.findByUsername(username).getUsername(),
-                userService.findByUsername(username).getPassword(),new ArrayList<>());
+        return new User(clientService.findByUsername(username).getUsername(),
+                clientService.findByUsername(username).getPassword(),new ArrayList<>());
     }
 }

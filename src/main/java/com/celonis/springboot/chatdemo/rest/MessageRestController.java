@@ -2,10 +2,10 @@ package com.celonis.springboot.chatdemo.rest;
 
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.MessageHelper;
-import com.celonis.springboot.chatdemo.entity.User;
+import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.rest.exception.NotAuthorizedException;
 import com.celonis.springboot.chatdemo.service.MessageService;
-import com.celonis.springboot.chatdemo.service.UserService;
+import com.celonis.springboot.chatdemo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,13 +19,13 @@ import java.util.List;
 public class MessageRestController {
 
     private MessageService messageService;
-    private UserService userService;
+    private ClientService clientService;
     private Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
     @Autowired
-    public MessageRestController(MessageService messageService,UserService userService){
+    public MessageRestController(MessageService messageService, ClientService clientService){
         this.messageService = messageService;
-        this.userService = userService;
+        this.clientService = clientService;
     }
 
     @GetMapping
@@ -42,14 +42,14 @@ public class MessageRestController {
     @PostMapping
     public MessageHelper saveMessage(@RequestBody MessageHelper messageHelper,
                                      HttpServletRequest request){
-        Principal principal =  request.getUserPrincipal();
-        User user = userService.findById(messageHelper.getUserId());
-        if(principal.getName().equals(user.getUsername())) {
+//        Principal principal =  request.getUserPrincipal();
+        Client client = clientService.findById(messageHelper.getUserId());
+//        if(principal.getName().equals(client.getUsername())) {
             messageService.save(messageHelper);
-        }
-        else{
-            throw new NotAuthorizedException("Not authorized");
-        }
+//        }
+////        else{
+////            throw new NotAuthorizedException("Not authorized");
+////        }
         return messageHelper;
     }
 

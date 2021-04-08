@@ -10,20 +10,20 @@ import javax.validation.constraints.NotNull;
 public class Message {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "message_id")
     private int id;
 
     @NotNull
     @Column(name="message")
     private String message;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.EAGER,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="user_id")
-    private User user;
+    private Client client;
 
-    @JsonIgnore
+
     @ManyToOne(fetch = FetchType.EAGER,cascade= {CascadeType.PERSIST, CascadeType.MERGE,
             CascadeType.DETACH, CascadeType.REFRESH})
     @JoinColumn(name="room_id")
@@ -32,9 +32,9 @@ public class Message {
     public Message() {
     }
 
-    public Message(String message, User user, Room room) {
+    public Message(String message, Client client, Room room) {
         this.message = message;
-        this.user = user;
+        this.client = client;
         this.room = room;
     }
 
@@ -54,12 +54,12 @@ public class Message {
         this.message = message;
     }
 
-    public User getUser() {
-        return user;
+    public Client getUser() {
+        return client;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(Client client) {
+        this.client = client;
     }
 
     public Room getRoom() {

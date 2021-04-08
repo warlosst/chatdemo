@@ -2,11 +2,11 @@ package com.celonis.springboot.chatdemo.service;
 
 import com.celonis.springboot.chatdemo.dao.MessageRepository;
 import com.celonis.springboot.chatdemo.dao.RoomRepository;
-import com.celonis.springboot.chatdemo.dao.UserRepository;
+import com.celonis.springboot.chatdemo.dao.ClientRepository;
+import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.MessageHelper;
 import com.celonis.springboot.chatdemo.entity.Room;
-import com.celonis.springboot.chatdemo.entity.User;
 import com.celonis.springboot.chatdemo.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,14 +17,14 @@ import java.util.Optional;
 public class MessageServiceImpl implements MessageService{
 
     private MessageRepository messageRepository;
-    private UserRepository userRepository;
+    private ClientRepository clientRepository;
     private RoomRepository roomRepository;
     @Autowired
     public MessageServiceImpl(MessageRepository messageRepository,
-                              UserRepository userRepository, RoomRepository roomRepository){
+                              ClientRepository clientRepository, RoomRepository roomRepository){
         this.messageRepository = messageRepository;
         this.roomRepository = roomRepository;
-        this.userRepository = userRepository;
+        this.clientRepository = clientRepository;
     }
 
 
@@ -50,13 +50,13 @@ public class MessageServiceImpl implements MessageService{
 
     @Override
     public void save(MessageHelper messageHelper) {
-        Optional<User> resultUser = userRepository.findById(messageHelper.getUserId());
+        Optional<Client> resultUser = clientRepository.findById(messageHelper.getUserId());
         Optional<Room> resultRoom = roomRepository.findById(messageHelper.getRoomId());
         String messageText = messageHelper.getMessage();
-        User user = null;
+        Client client = null;
         Room room = null;
         if(resultUser.isPresent()){
-           user = resultUser.get();
+           client = resultUser.get();
         }
         else{
             throw new NotFoundException("No user with this id");
@@ -64,7 +64,7 @@ public class MessageServiceImpl implements MessageService{
         if(resultRoom.isPresent()){
             room = resultRoom.get();
         }
-        Message message = new Message(messageText,user,room);
+        Message message = new Message(messageText, client,room);
         messageRepository.save(message);
     }
 

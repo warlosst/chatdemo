@@ -1,23 +1,25 @@
 package com.celonis.springboot.chatdemo.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "client")
+public class Client {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
+    @Column(name = "client_id")
     private int id;
 
     @NotNull(message = "username must not be null")
     @Column(name="username")
     private String username;
 
-    @NotNull(message = "password must not be null")
+    @JsonIgnore
     @Column(name="password")
     private String password;
 
@@ -26,17 +28,19 @@ public class User {
     private String email;
 
 
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY,cascade = {
             CascadeType.DETACH,CascadeType.MERGE,CascadeType.REFRESH,
             CascadeType.PERSIST
     })
     @JoinTable(
             name="membership",
-            joinColumns = @JoinColumn(name="user_id"),
+            joinColumns = @JoinColumn(name="client_id"),
             inverseJoinColumns = @JoinColumn(name="room_id")
     )
     private List<Room> roomList;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY,
             cascade = CascadeType.ALL)
     @JoinColumn(name = "user_id")
@@ -50,7 +54,7 @@ public class User {
         this.messageList = messageList;
     }
 
-    public User() {
+    public Client() {
     }
 
     public int getId() {

@@ -1,11 +1,11 @@
 package com.celonis.springboot.chatdemo.rest;
 
+import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.Room;
-import com.celonis.springboot.chatdemo.entity.User;
 import com.celonis.springboot.chatdemo.service.MessageService;
 import com.celonis.springboot.chatdemo.service.RoomService;
-import com.celonis.springboot.chatdemo.service.UserService;
+import com.celonis.springboot.chatdemo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,13 +16,13 @@ import java.util.List;
 public class RoomRestController {
 
     private RoomService roomService;
-    private UserService userService;
+    private ClientService clientService;
     private MessageService messageService;
 
     @Autowired
-    public RoomRestController(RoomService roomService,UserService userService,MessageService messageService){
+    public RoomRestController(RoomService roomService, ClientService clientService, MessageService messageService){
         this.roomService = roomService;
-        this.userService = userService;
+        this.clientService = clientService;
         this.messageService = messageService;
     }
 
@@ -57,22 +57,22 @@ public class RoomRestController {
     @PutMapping("/{roomId}/users/{userId}")
     public Room addUserToRoom(@PathVariable int roomId,@PathVariable int userId){
         Room room = roomService.findById(roomId);
-        User user = userService.findById(userId);
-        room.addUser(user);
+        Client client = clientService.findById(userId);
+        room.addUser(client);
         roomService.save(room);
         return room;
     }
     @GetMapping("/{roomId}/users")
-    public List<User> findAllUsersInRoom(@PathVariable int roomId){
+    public List<Client> findAllUsersInRoom(@PathVariable int roomId){
         Room room = roomService.findById(roomId);
-        List<User> userList = room.getUserList();
-        return userList;
+        List<Client> clientList = room.getUserList();
+        return clientList;
     }
     @DeleteMapping("/{roomId}/users/{userId}")
     public void leaveRoom(@PathVariable int roomId,@PathVariable int userId){
         Room room = roomService.findById(roomId);
-        User user = userService.findById(userId);
-        room.removeUser(user);
+        Client client = clientService.findById(userId);
+        room.removeUser(client);
         roomService.save(room);
     }
     @GetMapping("/{roomId}/messages")
