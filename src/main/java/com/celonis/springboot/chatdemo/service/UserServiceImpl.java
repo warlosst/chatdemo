@@ -4,6 +4,7 @@ import com.celonis.springboot.chatdemo.dao.UserRepository;
 import com.celonis.springboot.chatdemo.entity.User;
 import com.celonis.springboot.chatdemo.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -14,6 +15,8 @@ import java.util.Optional;
 public class UserServiceImpl implements UserService{
 
     private UserRepository userRepository;
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Autowired
     public UserServiceImpl(UserRepository userRepository){
@@ -48,6 +51,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public void save(User user) {
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
         userRepository.save(user);
     }
 
@@ -65,7 +69,7 @@ public class UserServiceImpl implements UserService{
             userRepository.deleteById(id);
         }
         else{
-            throw new RuntimeException("Did not find user with id: "+id);
+            throw new NotFoundException("Did not find user with id: "+id);
         }
     }
 }
