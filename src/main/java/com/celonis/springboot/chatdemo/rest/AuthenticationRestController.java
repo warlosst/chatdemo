@@ -2,6 +2,7 @@ package com.celonis.springboot.chatdemo.rest;
 
 import com.celonis.springboot.chatdemo.entity.AuthenticationRequest;
 import com.celonis.springboot.chatdemo.entity.AuthenticationResponse;
+import com.celonis.springboot.chatdemo.service.ClientService;
 import com.celonis.springboot.chatdemo.service.jwt.JwtUtil;
 import com.celonis.springboot.chatdemo.service.jwt.MyUserDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class AuthenticationRestController {
     @Autowired
     private JwtUtil jwtTokenUtil;
+    @Autowired
+    private ClientService clientService;
 
     @Autowired
     private MyUserDetailsService userDetailsService;
@@ -40,6 +43,7 @@ public class AuthenticationRestController {
         final UserDetails userDetails =
                 userDetailsService.loadUserByUsername(authenticationRequest.getUsername());
         final String jwt = jwtTokenUtil.generateToken(userDetails);
-        return ResponseEntity.ok(new AuthenticationResponse(jwt));
+        int id = clientService.findByUsername(authenticationRequest.getUsername()).getId();
+        return ResponseEntity.ok(new AuthenticationResponse(jwt, id));
     }
 }

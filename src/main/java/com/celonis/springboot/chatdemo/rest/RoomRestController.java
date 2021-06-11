@@ -54,24 +54,24 @@ public class RoomRestController {
         roomService.deleteById(roomId);
     }
 
-    @PutMapping("/{roomId}/users/{userId}")
-    public Room addUserToRoom(@PathVariable int roomId,@PathVariable int userId){
+    @PutMapping("/{roomId}/clients/{clientId}")
+    public Room addUserToRoom(@PathVariable int roomId,@PathVariable int clientId){
         Room room = roomService.findById(roomId);
-        Client client = clientService.findById(userId);
+        Client client = clientService.findById(clientId);
         room.addUser(client);
         roomService.save(room);
         return room;
     }
-    @GetMapping("/{roomId}/users")
+    @GetMapping("/{roomId}/clients")
     public List<Client> findAllUsersInRoom(@PathVariable int roomId){
         Room room = roomService.findById(roomId);
         List<Client> clientList = room.getUserList();
         return clientList;
     }
-    @DeleteMapping("/{roomId}/users/{userId}")
-    public void leaveRoom(@PathVariable int roomId,@PathVariable int userId){
+    @DeleteMapping("/{roomId}/clients/{clientId}")
+    public void leaveRoom(@PathVariable int roomId,@PathVariable int clientId){
         Room room = roomService.findById(roomId);
-        Client client = clientService.findById(userId);
+        Client client = clientService.findById(clientId);
         room.removeUser(client);
         roomService.save(room);
     }
