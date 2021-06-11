@@ -1,0 +1,137 @@
+#image-1 {
+  background-image: url("https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2900&q=80");
+}
+.main {
+  height: 80vh;
+  overflow: auto;
+}
+.main__display {
+  display: flex;
+  width: 100%;
+  flex-grow: 18;
+  min-height: 2em;
+  flex-direction: column;
+}
+
+.main__display .container {
+  border: 2px solid #ffffff;
+  background-color: #ffffff;
+  border-radius: 5px;
+  gap: 12px;
+  margin: 5px 0;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: row;
+  column-count: 2;
+}
+
+.main__display .container .image {
+  cursor: pointer;
+  background-size: cover;
+  background-repeat: no-repeat;
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 50px;
+  height: 50px;
+}
+
+.main__display .container .wrapper {
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  flex-grow: 0;
+  min-width: 0;
+  max-width: 90%;
+}
+
+.main__display .container .wrapper .message {
+  flex-basis: 80%;
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+  flex-shrink: 0;
+  align-self: flex-start;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.main__display .container .wrapper .name {
+  flex-basis: 10%;
+  align-self: flex-start;
+  align-items: flex-start;
+  position: relative;
+  bottom: 4px;
+}
+.main__display .container .wrapper .name__time {
+  color: #717171;
+}
+
+.popup .popup__overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.1);
+  width: 100vw;
+  height: 100vh;
+  display: none;
+}
+
+.popup .popup__content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0);
+  background: #272f26;
+  width: 400px;
+  height: 500px;
+  z-index: 2;
+  text-align: center;
+  padding: 20px;
+  box-sizing: border-box;
+  font-family: "Open Sans", sans-serif;
+}
+
+.popup .popup__content .image {
+  position: absolute;
+  width: 100%;
+  height: 50%;
+  top: 0;
+  right: 0;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
+
+.popup .popup__content .name {
+  position: absolute;
+  top: 50%;
+  text-align: center;
+  color: white;
+}
+
+.popup .popup__content .text {
+  position: absolute;
+  top: 60%;
+  text-align: center;
+  color: #486fb9;
+  cursor: pointer;
+}
+
+.popup .popup__content .close-btn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  color: #719ECE;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.popup.active .popup__overlay {
+  display: block;
+}
+
+.popup.active .popup__content {
+  transition: all 3ms ease-in-out;
+  transform: translate(-50%, -50%) scale(1);
+}

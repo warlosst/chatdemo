@@ -1,0 +1,124 @@
+.main__header {
+  border-bottom: solid 1px;
+  justify-self: flex-start;
+  flex-shrink: 0;
+  border-color: #dddddd;
+  display: grid;
+  width: 100%;
+  height:40px;
+  grid-template-columns: 30px 75% 15% 5%;
+  grid-template-areas: "first second third last";
+}
+
+.main__header .row-1 {
+  background-color: #ffffff;
+  border: none;
+  grid-area: first;
+  cursor: pointer;
+  width: 100%;
+  height: 40px;
+  text-align: center;
+  background-image: url("../../assets/iconmonstr-angel-left-thin.svg");
+  background-repeat: no-repeat;
+  background-size: 50% 50%;
+  background-position: center;
+}
+
+.main__header .row-2 {
+  text-align: center;
+  line-height: 40px;
+  background-color: #ffffff;
+  height: 40px;
+  cursor: pointer;
+  grid-area: second;
+}
+
+.main__header .row-3 {
+  background-color: #ffffff;
+  grid-area: third;
+  height: 40px;
+}
+.main__header .row-3__input {
+  box-sizing: border-box;
+  width: 100%;
+  height: 40px;
+}
+
+.main__header .row-4 {
+  text-align: center;
+  line-height: 40px;
+  background-color: #ffffff;
+  grid-area: last;
+  cursor: pointer;
+  height: 40px;
+}
+
+.sidenav {
+  height: 100%;
+  width: 30%;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  background-color: #3d3c3a;
+  overflow-x: hidden;
+  padding-top: 60px;
+  transition: 0.1s;
+}
+.sidenav__line {
+  border: 1px solid #717171;
+}
+
+.sidenav a:hover {
+  color: #454545;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+  color: #719ECE;
+}
+
+.sidenav__channel {
+  background-color: #3d3c3a;
+  color: #f9f9f9;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 15px;
+}
+
+.active, .sidenav__channel:hover {
+  background-color: #454545;
+}
+
+#sidenav__content {
+  color: #818181;
+  overflow: hidden;
+  background-color: #111;
+}
+
+.sidenav--left {
+  left: 0;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {
+    padding-top: 15px;
+  }
+
+  .sidenav a {
+    font-size: 18px;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .sidenav {
+    width: 70%;
+  }
+}
+
