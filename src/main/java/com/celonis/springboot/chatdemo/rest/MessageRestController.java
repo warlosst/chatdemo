@@ -1,58 +1,56 @@
 package com.celonis.springboot.chatdemo.rest;
 
+import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.entity.Message;
+import com.celonis.springboot.chatdemo.entity.MessageHelper;
+import com.celonis.springboot.chatdemo.service.ClientService;
 import com.celonis.springboot.chatdemo.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/messages")
 public class MessageRestController {
 
     private MessageService messageService;
+    private ClientService clientService;
+    private Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
     @Autowired
-    public MessageRestController(MessageService messageService){
+    public MessageRestController(MessageService messageService, ClientService clientService){
         this.messageService = messageService;
+        this.clientService = clientService;
     }
 
-    @GetMapping("/messages")
+    @GetMapping
     public List<Message> findAll(){
         return messageService.findAll();
     }
 
-    @GetMapping("/messages/{messageId}")
+    @GetMapping("/{messageId}")
     public Message findMessageById(@PathVariable int messageId){
         Message message = messageService.findById(messageId);
-        if(message == null){
-            throw new RuntimeException("Message id not found - "+messageId);
-        }
         return message;
     }
 
-    @PostMapping("/messages")
-    public Message saveMessage(@RequestBody Message message){
-        message.setId(0);
-        messageService.save(message);
-        return message;
+    @PostMapping
+    public MessageHelper saveMessage(@RequestBody MessageHelper messageHelper,
+                                     HttpServletRequest request){
+//        Principal principal =  request.getUserPrincipal();
+        Client client = clientService.findById(messageHelper.getUserId());
+//        if(principal.getName().equals(client.getUsername())) {
+            messageService.save(messageHelper);
+//        }
+////        else{
+////            throw new NotAuthorizedException("Not authorized");
+////        }
+        return messageHelper;
     }
 
-    @PutMapping("/messages")
-    public Message updateMessage(@RequestBody Message message){
-        messageService.save(message);
-        return message;
-    }
 
-    @DeleteMapping("/messages/{messageId}")
-    public String deleteMessage(@PathVariable int messageId){
-        Message message = messageService.findById(messageId);
-        if(message == null){
-            throw new RuntimeException("Message id not found - "+messageId);
-
-        }
-        messageService.deleteById(messageId);
-        return "Message id deleted - "+messageId;
-    }
 }

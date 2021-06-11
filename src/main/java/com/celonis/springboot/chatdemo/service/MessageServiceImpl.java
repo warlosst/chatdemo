@@ -1,43 +1,93 @@
 package com.celonis.springboot.chatdemo.service;
 
-import com.celonis.springboot.chatdemo.dao.MessageDAO;
+import com.celonis.springboot.chatdemo.dao.ClientRepository;
+import com.celonis.springboot.chatdemo.dao.MessageRepository;
+import com.celonis.springboot.chatdemo.dao.RoomRepository;
+import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.entity.Message;
+import com.celonis.springboot.chatdemo.entity.MessageHelper;
+import com.celonis.springboot.chatdemo.entity.Room;
+import com.celonis.springboot.chatdemo.rest.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class MessageServiceImpl implements MessageService{
 
-    private MessageDAO messageDAO;
+    private MessageRepository messageRepository;
+    private ClientRepository clientRepository;
+    private RoomRepository roomRepository;
     @Autowired
-    public MessageServiceImpl(MessageDAO messageDAO){
-        this.messageDAO = messageDAO;
+    public MessageServiceImpl(MessageRepository messageRepository,
+                              ClientRepository clientRepository, RoomRepository roomRepository){
+        this.messageRepository = messageRepository;
+        this.roomRepository = roomRepository;
+        this.clientRepository = clientRepository;
     }
 
-    @Transactional
+
     @Override
     public List<Message> findAll() {
-        return messageDAO.findAll();
+        return messageRepository.findAll();
     }
 
-    @Transactional
+
     @Override
     public Message findById(int id) {
-        return messageDAO.findById(id);
+        Optional<Message> result = messageRepository.findById(id);
+        Message tempMessage = null;
+        if(result.isPresent()){
+            tempMessage = result.get();
+        }
+        else{
+            throw new NotFoundException("Did not find message with id: "+id);
+        }
+        return tempMessage;
     }
 
-    @Transactional
+
     @Override
-    public void save(Message message) {
-        messageDAO.save(message);
+    public void save(MessageHelper messageHelper) {
+        Optional<Client> resultUser = clientRepository.findById(messageHelper.getUserId());
+        Optional<Room> resultRoom = roomRepository.findById(messageHelper.getRoomId());
+        String messageText = messageHelper.getMessage();
+        Client client = null;
+        Room room = null;
+        if(resultUser.isPresent()){
+           client = resultUser.get();
+        }
+        else{
+            throw new NotFoundException("No user with this id");
+        }
+        if(resultRoom.isPresent()){
+            room = resultRoom.get();
+        }
+        Message message = new Message(messageText, client,room);
+        messageRepository.save(message);
     }
 
-    @Transactional
+    public List<Message> findAllByRoomId(int roomId)
+    {
+        List<Message> messages =
+                messageRepository.findByRoomId(roomId);
+
+        return messages;
+
+    }
+
+
     @Override
     public void deleteById(int id) {
-        messageDAO.deleteById(id);
+        Optional<Message> result = messageRepository.findById(id);
+        if(result.isPresent()) {
+            messageRepository.deleteById(id);
+        }
+        else{
+            throw new NotFoundException("Did not find message with id: "+id);
+        }
     }
 
 }
