@@ -3,9 +3,9 @@ package com.celonis.springboot.chatdemo.rest;
 import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.Room;
+import com.celonis.springboot.chatdemo.service.ClientService;
 import com.celonis.springboot.chatdemo.service.MessageService;
 import com.celonis.springboot.chatdemo.service.RoomService;
-import com.celonis.springboot.chatdemo.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

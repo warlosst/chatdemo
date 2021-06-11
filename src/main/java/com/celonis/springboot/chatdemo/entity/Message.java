@@ -1,7 +1,5 @@
 package com.celonis.springboot.chatdemo.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

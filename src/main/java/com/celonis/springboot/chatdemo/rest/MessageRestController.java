@@ -1,17 +1,16 @@
 package com.celonis.springboot.chatdemo.rest;
 
+import com.celonis.springboot.chatdemo.entity.Client;
 import com.celonis.springboot.chatdemo.entity.Message;
 import com.celonis.springboot.chatdemo.entity.MessageHelper;
-import com.celonis.springboot.chatdemo.entity.Client;
-import com.celonis.springboot.chatdemo.rest.exception.NotAuthorizedException;
-import com.celonis.springboot.chatdemo.service.MessageService;
 import com.celonis.springboot.chatdemo.service.ClientService;
+import com.celonis.springboot.chatdemo.service.MessageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
+
 import javax.servlet.http.HttpServletRequest;
-import java.security.Principal;
 import java.util.List;
 
 @RestController
