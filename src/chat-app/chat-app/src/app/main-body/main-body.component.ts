@@ -1,5 +1,4 @@
 import {
-  AfterViewInit,
   Component,
   ElementRef,
   OnInit,
@@ -15,9 +14,9 @@ import { Message } from "../interfaces/Message";
   templateUrl: './main-body.component.html',
   styleUrls: ['./main-body.component.css']
 })
-export class MainBodyComponent implements OnInit,AfterViewInit {
+export class MainBodyComponent implements OnInit {
 
-  @ViewChild('scroll') private myScrollContainer: ElementRef | undefined;
+  @ViewChild('scroll') myScrollContainer: ElementRef | undefined;
   messages: Message[] = [];
   roomId: number | undefined;
   displayPopUp: boolean = false;
@@ -32,17 +31,17 @@ export class MainBodyComponent implements OnInit,AfterViewInit {
     let id:number = parseInt(<string>this.route.snapshot.paramMap.get('id'));
     this.roomId = id;
     this.getMessages();
+    setTimeout(()=>{this.scrollToBottom()},200)
   }
-  ngAfterViewInit(): void {
-    this.scrollToBottom();
-  }
+
 
   popUp(){
     this.displayPopUp = !this.displayPopUp;
   }
   getMessages(){
+
     if(this.roomId){
-      const source = interval(1000);
+      const source = interval(100);
       source.subscribe(() =>
         this.roomService.getMessagesByRoomId(this.roomId)
           .subscribe(data =>
@@ -64,6 +63,5 @@ export class MainBodyComponent implements OnInit,AfterViewInit {
       }
     } catch(err) { }
   }
-
 
 }
