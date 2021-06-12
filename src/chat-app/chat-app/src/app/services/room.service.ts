@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Room} from '../interfaces/Room';
 import {Message} from "../interfaces/Message";
 
@@ -10,9 +10,17 @@ import {Message} from "../interfaces/Message";
 })
 export class RoomService {
 
+  url: string = "http://localhost:8080/";
+
   constructor(private http: HttpClient) { }
 
-  url: string = "http://localhost:8080/";
+  private message = new BehaviorSubject('');
+  sharedMessage = this.message.asObservable();
+
+  nextMessage(message: string) {
+    this.message.next(message)
+  }
+
   getRooms(): Observable<Room[]>{
     return this.http.get<Room[]>(this.url+"api/rooms");
   }
@@ -24,4 +32,5 @@ export class RoomService {
   postMessage(message: any): Observable<Message>{
     return this.http.post<Message>(this.url+"api/messages",JSON.stringify(message));
   }
+
 }

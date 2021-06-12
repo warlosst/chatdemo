@@ -1,5 +1,5 @@
-import {Room} from "./Room";
-import {User} from "./User";
+import { Room } from "./Room";
+import { User } from "./User";
 
 export interface Message{
   id: number,

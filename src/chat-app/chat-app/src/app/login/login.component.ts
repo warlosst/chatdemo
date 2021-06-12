@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {AuthenticationService} from "../services/authentication.service";
+import { Component } from '@angular/core';
+import { Router } from "@angular/router";
+import { AuthenticationService } from "../services/authentication.service";
 
 
 @Component({
@@ -8,12 +8,8 @@ import {AuthenticationService} from "../services/authentication.service";
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent {
 
-  constructor(private route: Router, private authorizationService: AuthenticationService) { }
-
-  ngOnInit(): void {
-  }
   user ={
     username:'',
     password:''
@@ -23,6 +19,9 @@ export class LoginComponent implements OnInit {
     id:''
   }
 
+  constructor(private router: Router,
+              private authorizationService: AuthenticationService) { }
+
   onSubmit() {
     this.authorizationService.authenticate(this.user)
         .subscribe(data =>
@@ -30,7 +29,7 @@ export class LoginComponent implements OnInit {
           this.authorization = data;
           localStorage.setItem('token',data.jwt);
           localStorage.setItem('id',data.id);
-          this.route.navigate(["/home"]);
+          this.router.navigate(["/home"]);
         });
   }
 }

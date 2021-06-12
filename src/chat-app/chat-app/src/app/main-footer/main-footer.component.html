@@ -1,8 +1,12 @@
 <div class="main__form">
-  <input class="input input--space" #input placeholder="Message">
+  <input class="input input--space"
+         #input placeholder="Message {{roomName}}"
+         (keyup)="onKey(input)"
+          (keyup.enter)="submitForm(input)">
 
   <div class="message">
-    <button class="message__button" (click)="submitForm(input)">
+    <button class="message__button" [ngStyle]="getStyleList()"
+            (click)="submitForm(input)">
     </button>
   </div>
 </div>

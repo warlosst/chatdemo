@@ -1,5 +1,5 @@
 
-<div class="main">
+<div class="main" #scroll>
 <div *ngFor="let message of messages" class="main__display" >
 
   <div  class="container">
@@ -7,7 +7,7 @@
     <div class="wrapper">
                 <span class="name" >
                     <strong>{{message.user.username}}</strong>
-                    <span class="name__time" >11:00</span>
+                    <span class="name__time" >11:11</span>
                 </span>
       <p class="message">{{message.message}}</p>
     </div>
