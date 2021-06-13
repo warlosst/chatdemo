@@ -9,14 +9,14 @@
   flex-direction: row;
   column-fill: balance;
   column-count: 2;
-  background-color: #c6baff;
+  background-color: #f2ebeb;
 }
 
 .main__form .input {
   display: inline-block;
   width: 100%;
-  margin: 8px 0px 0px 25px;
-  height: 45px;
+  margin: 12px 0px 0px 25px;
+  height: 40px;
   flex-grow: 1;
   border-top: 1px solid;
   border-bottom: 1px solid;
@@ -27,12 +27,12 @@
   padding-left: 10px;
 }
 .main__form .input:hover {
-  border-color: lightgreen;
+  border-color: #f1d5d5;
 }
 .main__form .input:focus {
   outline: none !important;
-  border: 1px solid lightgreen;
-  box-shadow: 0 0 3px #719ECE;
+  border: 1px solid #f6ba7a;
+  box-shadow: 0 0 3px #f2ebeb;
 }
 .main__form .message {
   text-align: end;
@@ -42,8 +42,8 @@
 .main__form .message__button {
   text-align: center;
   width: 55px;
-  height: 49px;
-  margin: 8px 25px 0px 5px;
+  height: 44px;
+  margin: 12px 25px 0px 5px;
   border: 1px solid;
   border-color: #dddddd;
   background-color: white;

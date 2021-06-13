@@ -6,9 +6,9 @@
   display: grid;
   width: 100%;
   height:40px;
-  grid-template-columns: 105px 56% 22% 14%;
+  grid-template-columns: 105px auto auto 55px;
   grid-template-areas: "first second third last";
-  background-color: #c6baff;
+  background-color: #f2ebeb;
 }
 
 .main__header .row-1 {
@@ -23,7 +23,7 @@
   background-repeat: no-repeat;
   background-size: 100% 100%;
   background-position: center;
-  background-color: #c6baff;
+  background-color: #f2ebeb;
 }
 
 .main__header .row-2 {
@@ -32,12 +32,12 @@
   height: 40px;
   cursor: pointer;
   grid-area: second;
-  background-color: #c6baff;
+  background-color: #f2ebeb;
 
 }
 
 .main__header .row-3 {
-  background-color: #c6baff;
+  background-color: #f2ebeb;
   grid-area: third;
   height: 40px;
 
@@ -54,25 +54,27 @@
 }
 .main__header .row-3__input:focus {
   outline: none !important;
-  border: 1px solid lightgreen;
+  border: 1px solid #f69108;
   box-shadow: 0 0 3px #719ECE;
 }
 
 
 
 .main__header .row-4 {
-  background-color: #c6baff;
+
   font-size: 14px;
   font-weight: lighter;
   text-align: center;
   line-height: 30px;
-  background-color: #ffffff;
+  background-image: url("https://images.unsplash.com/photo-1479936343636-73cdc5aae0c3?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=2900&q=80");
   grid-area: last;
   cursor: pointer;
-  height: 30px;
-  border-radius: 10px;
+  height: 32px;
+  border-radius: 50%;
   border: 1px solid rgb(153, 153, 153);
   margin: 3px 10px 3px 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .sidenav {
@@ -81,7 +83,7 @@
   position: fixed;
   z-index: 1;
   top: 0;
-  background-color: #eca8f9;
+  background-color: #f7e0e0;
   overflow-x: hidden;
   padding-top: 60px;
   font-weight: 200;
@@ -103,7 +105,7 @@
 }
 
 .sidenav__channel {
-  background-color: #eca8f9;
+  background-color: #f7e0e0;
   color: #080808;
   cursor: pointer;
   padding: 18px;
@@ -128,26 +130,12 @@
     font-size: 18px;
   }
 }
-@media only screen and (min-device-width: 481px) and (max-device-width: 700px) {
-  .sidenav {
-    width: 70%;
-  }
-  .main__header{
-    grid-template-columns: 105px 40% 18% 22%;
-  }
-}
-@media only screen and (max-device-width: 480px) {
-  .main__header{
-    grid-template-columns: 105px 28% 30% 20%;
-  }
+@media only screen and (min-device-width: 100px) and (max-device-width: 700px) {
   .sidenav {
     width: 70%;
   }
 }
-@media only screen and (min-device-width: 701px) and (max-device-width: 1200px) {
-  .main__header{
-    grid-template-columns: 105px 45% 18% 22%;
-  }
-}
+
+
 
 

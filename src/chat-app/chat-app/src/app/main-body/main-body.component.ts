@@ -48,6 +48,7 @@ export class MainBodyComponent implements OnInit {
           {
             if(data.length!==this.messages.length){
               this.messages = data;
+              setTimeout(()=>{this.scrollToBottom()},0)
             }
           }
           )
