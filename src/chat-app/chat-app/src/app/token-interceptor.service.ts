@@ -17,12 +17,12 @@ export class TokenInterceptorService implements HttpInterceptor{
       const headers = new HttpHeaders({
         'Content-Type': 'application/json'
       });
-      const reqWithAuth = req.clone(
+      const reqWithOutAuth = req.clone(
         {
           headers
         }
       );
-      return next.handle(reqWithAuth);
+      return next.handle(reqWithOutAuth);
 
     }
     else{

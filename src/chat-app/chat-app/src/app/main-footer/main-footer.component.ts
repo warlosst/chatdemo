@@ -32,6 +32,7 @@ export class MainFooterComponent implements OnInit{
   submitForm(input: HTMLInputElement) {
     this.message.message = input.value;
     this.roomService.postMessage(this.message).subscribe(() => input.value='');
+    this.values = '';
 
   }
 
