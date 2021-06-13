@@ -4,18 +4,19 @@
   <div class="row-3">
     <input type="text" placeholder="Search" class="row-3__input">
   </div>
-  <div class="row-4" (click)="logOut()">Log Out</div>
+  <div class="row-4" (click)="logOut()">
+    <span class="row-4__span">Log Out</span>
+  </div>
 </div>
 
 
-<div id="mySidenav" *ngIf="displayNav" class="sidenav sidenav--left">
+<div id="mySidenav" *ngIf="displayNav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="toggleNav()">&times;</a>
   <button type="button" class="sidenav__channel"  >Threads</button>
   <button type="button" class="sidenav__channel"  >All DMs</button>
   <button type="button" class="sidenav__channel" >Mentions & reactions</button>
   <button type="button" class="sidenav__channel" >Contact</button>
 
-  <hr class="sidenav__line">
 
   <button type="button" class="sidenav__channel" (click)="toggleChannel()">Rooms</button>
   <div *ngIf="displayChannels" id="sidenav__content">
