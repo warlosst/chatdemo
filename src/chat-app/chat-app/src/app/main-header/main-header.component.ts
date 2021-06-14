@@ -13,7 +13,7 @@ var roomName = "";
 })
 export class MainHeaderComponent implements OnInit {
 
-
+  isProfileClicked: boolean= false;
 
   constructor(private router:Router,
               private roomService: RoomService,
@@ -46,7 +46,11 @@ export class MainHeaderComponent implements OnInit {
     this.router.navigate(['/home',room.id]);
   }
 
-  logOut() {
+  showProfile() {
+    this.isProfileClicked = !this.isProfileClicked
+
+  }
+  logOut(){
     this.authService.logOut();
     this.router.navigate(['/login']);
   }

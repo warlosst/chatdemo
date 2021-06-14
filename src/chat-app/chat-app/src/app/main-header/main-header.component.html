@@ -4,11 +4,13 @@
   <div class="row-3">
     <input type="text" placeholder="Search" class="row-3__input">
   </div>
-  <div class="row-4" (click)="logOut()">
+  <div class="row-4" (click)="showProfile()">
     <span class="row-4__span"></span>
   </div>
 </div>
-
+<div *ngIf = "isProfileClicked" class="profile">
+  <div class="profile__logout" (click)="logOut()">Log out</div>
+</div>
 
 <div id="mySidenav" *ngIf="displayNav" class="sidenav">
   <a href="javascript:void(0)" class="closebtn" (click)="toggleNav()">&times;</a>

@@ -77,6 +77,22 @@
   background-repeat: no-repeat;
 }
 
+.profile {
+  position: absolute;
+  background-color:#f7e0e0;
+  width: 150px;
+  height: 40px;
+  right:10px;
+  border-radius: 10px;
+  border: 1px solid #f7d7d7;
+}
+
+.profile__logout {
+  text-align: center;
+  height: 100%;
+  line-height: 40px;
+}
+
 .sidenav {
   height: 100%;
   width: 30%;
