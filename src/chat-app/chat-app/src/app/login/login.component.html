@@ -1,0 +1,32 @@
+<div class="container">
+
+  <div class="form">
+
+    <form #form="ngForm" (ngSubmit)="onSubmit()" >
+
+      <div class="form__items">
+
+        <h1 class="form__items__h1">Log in</h1>
+        <br>
+
+        <input type="text" name="username" [(ngModel)]="user.username" placeholder="   Username">
+        <br>
+
+        <input type="password" name="password" [(ngModel)]="user.password" placeholder="   Password">
+        <br>
+
+        <button class="form__items__button" type="submit">SIGN IN</button>
+        <br>
+
+        <a class="form__items__a"href="#">Forgot password?</a>
+        <br>
+        <hr class="form__items__hr">
+
+        <p class="form__items__p">Don't have account?
+          <a class="form__items__a" routerLink="/register">Register here</a></p>
+
+      </div>
+    </form>
+  </div>
+
+</div>

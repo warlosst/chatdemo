@@ -1,0 +1,34 @@
+<div class="main__header">
+  <button class="row-1" type="button" (click)="toggleNav()"></button>
+  <div class="row-2">{{roomname}}</div>
+  <div class="row-3">
+    <input type="text" placeholder="Search" class="row-3__input">
+  </div>
+  <div class="row-4" (click)="showProfile()">
+    <span class="row-4__span"></span>
+  </div>
+</div>
+<div *ngIf = "isProfileClicked" class="profile">
+  <div class="profile__logout" (click)="logOut()">Log out</div>
+</div>
+
+<div id="mySidenav" *ngIf="displayNav" class="sidenav">
+  <a href="javascript:void(0)" class="closebtn" (click)="toggleNav()">&times;</a>
+  <button type="button" class="sidenav__channel"  >Threads</button>
+  <button type="button" class="sidenav__channel"  >All DMs</button>
+  <button type="button" class="sidenav__channel" >Mentions & reactions</button>
+  <button type="button" class="sidenav__channel" >Contact</button>
+
+
+  <button type="button" class="sidenav__channel" (click)="toggleChannel()">Rooms</button>
+  <div *ngIf="displayChannels" id="sidenav__content">
+    <button (click)="navigate(room)"
+            class="sidenav__channel"
+            *ngFor="let room of rooms"
+    >{{room.name}}</button>
+
+  </div>
+
+</div>
+
+
